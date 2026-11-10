@@ -1,0 +1,63 @@
+/* src/App.css */
+
+.app-container {
+  font-family: 'Segoe UI', sans-serif;
+  max-width: 400px;
+  width: 100%;
+  margin: 20px auto;
+  padding: 25px;
+  background-color: #1e293b;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  color: #f1f5f9;
+  box-sizing: border-box;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  background-color: #059669;
+  color: white;
+  border: none;
+  border-radius: 10px; /* Diperbaiki dari borderRadius */
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.card-menu {
+  padding: 18px 20px;
+  background-color: #334155;
+  border-radius: 15px;
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.card-menu:hover {
+  background-color: #3f4c6b;
+  transform: translateY(-2px);
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #475569; /* Diperhalus sedikit agar garisnya lebih jelas */
+  border-radius: 10px;
+  font-size: 1rem;
+  background-color: #0f172a;
+  color: #fff;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: #38bdf8; /* Efek menyala biru saat kotak input diklik */
+}

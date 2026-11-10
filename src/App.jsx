@@ -16,7 +16,7 @@ import Akun from './components/Akun';
 const supabase = createClient('https://tqfspwtaexpxlmflaskd.supabase.co', 'sb_publishable_QTf6sd3BIoxhRf7u67-1JA_lPiLm_EB');
 
 function App() {
-  // State Navigasi Utama dengan validasi untuk mencegah Storage Poisoning
+ // BAGIAN INI: Pengambilan 'app_screen' dari localStorage
   const [currentScreen, setCurrentScreen] = useState(() => {
     const savedScreen = localStorage.getItem('app_screen');
     const allowedScreens = ['welcome', 'daftar', 'masuk', 'menu'];
@@ -38,13 +38,12 @@ function App() {
   const [lPass, setLPass] = useState('');
   const [loginErr, setLoginErr] = useState('');
 
-  // Data Akun Pengguna dengan sanitasi/validasi struktur data
+  // BAGIAN INI: Pengambilan 'user_akun_data' dari localStorage
   const [akunData, setAkunData] = useState(() => {
     try {
       const savedAkun = localStorage.getItem('user_akun_data');
       if (savedAkun) {
         const parsed = JSON.parse(savedAkun);
-        // Validasi tipe dan bentuk data objek agar aman dari manipulasi storage
         if (parsed && typeof parsed === 'object' && typeof parsed.nama === 'string' && typeof parsed.email === 'string') {
           return {
             nama: parsed.nama,

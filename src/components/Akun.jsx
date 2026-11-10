@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -7,13 +7,6 @@ export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
     email: '',
     noHp: ''
   });
-
-  // Sinkronisasi jika akunData dari App.jsx berubah
-  useEffect(() => {
-    if (akunData) {
-      setTempAkun(akunData);
-    }
-  }, [akunData]);
 
   const handleChange = (e) => {
     setTempAkun({ ...tempAkun, [e.target.name]: e.target.value });

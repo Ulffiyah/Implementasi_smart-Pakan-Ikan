@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Beranda({ setActivePage, onLogout, catatanLength }) {
+export default function Beranda({ setActivePage, catatanLength }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', width: '100%' }}>
       

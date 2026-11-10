@@ -26,7 +26,8 @@ export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '3
     setMenuId(null);
   };
 
-  const handleEditJadwal = (id) => {
+  // Fungsi edit jadwal tanpa parameter yang tidak terpakai
+  const handleEditJadwal = () => {
     setMenuId(null);
   };
 
@@ -91,7 +92,7 @@ export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '3
                 {/* Menu Dropdown Edit / Hapus */}
                 {menuId === item.id && (
                   <div style={{ position: 'absolute', right: 0, top: '25px', background: '#0f172a', border: '1px solid #475569', borderRadius: '6px', zIndex: 10, overflow: 'hidden', boxShadow: '0 4px 10px rgba(0,0,0,0.4)' }}>
-                    <button type="button" onClick={() => handleEditJadwal(item.id)} style={{ display: 'block', width: '100%', padding: '6px 12px', background: 'none', border: 'none', color: '#38bdf8', textAlign: 'left', cursor: 'pointer', fontSize: '0.75rem', borderBottom: '1px solid #334155' }}>Edit</button>
+                    <button type="button" onClick={() => handleEditJadwal()} style={{ display: 'block', width: '100%', padding: '6px 12px', background: 'none', border: 'none', color: '#38bdf8', textAlign: 'left', cursor: 'pointer', fontSize: '0.75rem', borderBottom: '1px solid #334155' }}>Edit</button>
                     <button type="button" onClick={() => handleHapusJadwal(item.id)} style={{ display: 'block', width: '100%', padding: '6px 12px', background: 'none', border: 'none', color: '#ef4444', textAlign: 'left', cursor: 'pointer', fontSize: '0.75rem' }}>Hapus</button>
                   </div>
                 )}

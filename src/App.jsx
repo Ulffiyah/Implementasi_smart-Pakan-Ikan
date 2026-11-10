@@ -16,9 +16,11 @@ import Akun from './components/Akun';
 const supabase = createClient('https://tqfspwtaexpxlmflaskd.supabase.co', 'sb_publishable_QTf6sd3BIoxhRf7u67-1JA_lPiLm_EB');
 
 function App() {
-  // State Navigasi Utama (welcome, daftar, masuk, menu)
+  // State Navigasi Utama dengan validasi untuk mencegah Storage Poisoning
   const [currentScreen, setCurrentScreen] = useState(() => {
-    return localStorage.getItem('app_screen') || 'welcome';
+    const savedScreen = localStorage.getItem('app_screen');
+    const allowedScreens = ['welcome', 'daftar', 'masuk', 'menu'];
+    return allowedScreens.includes(savedScreen) ? savedScreen : 'welcome';
   });
 
   const [activePage, setActivePage] = useState('beranda');
@@ -36,11 +38,22 @@ function App() {
   const [lPass, setLPass] = useState('');
   const [loginErr, setLoginErr] = useState('');
 
-  // Data Akun Pengguna
+  // Data Akun Pengguna dengan sanitasi/validasi struktur data
   const [akunData, setAkunData] = useState(() => {
     try {
       const savedAkun = localStorage.getItem('user_akun_data');
-      return savedAkun ? JSON.parse(savedAkun) : {
+      if (savedAkun) {
+        const parsed = JSON.parse(savedAkun);
+        // Validasi tipe dan bentuk data objek agar aman dari manipulasi storage
+        if (parsed && typeof parsed === 'object' && typeof parsed.nama === 'string' && typeof parsed.email === 'string') {
+          return {
+            nama: parsed.nama,
+            email: parsed.email,
+            noHp: typeof parsed.noHp === 'string' ? parsed.noHp : ''
+          };
+        }
+      }
+      return {
         nama: 'Dewi Santika',
         email: 'dewi.santika@gmail.com',
       };
@@ -64,21 +77,23 @@ function App() {
   // Data Wi-Fi
   const [wifiData, setWifiData] = useState({ ssid: '', password: '' });
 
-  // Data Catatan Jurnal Harian
-  const [catatan, setCatatan] = useState(() => {
+  // Data Catatan Jurnal Harian dengan validasi array
+  const [catatan] = useState(() => {
     try {
       const saved = localStorage.getItem("jurnalDataV2");
-      return saved ? JSON.parse(saved) : [];
+      const parsed = saved ? JSON.parse(saved) : [];
+      return Array.isArray(parsed) ? parsed : [];
     } catch (e) {
       return [];
     }
   });
 
-  // Data Jurnal RAB Petani
+  // Data Jurnal RAB Petani dengan validasi array
   const [rabList, setRabList] = useState(() => {
     try {
       const saved = localStorage.getItem("rabListData");
-      return saved ? JSON.parse(saved) : [];
+      const parsed = saved ? JSON.parse(saved) : [];
+      return Array.isArray(parsed) ? parsed : [];
     } catch (e) {
       return [];
     }
@@ -90,11 +105,13 @@ function App() {
 
   // Fungsi Pindah Layar + Simpan ke LocalStorage
   const changeScreen = (screenName) => {
-    setCurrentScreen(screenName);
-    localStorage.setItem('app_screen', screenName);
+    const allowedScreens = ['welcome', 'daftar', 'masuk', 'menu'];
+    if (allowedScreens.includes(screenName)) {
+      setCurrentScreen(screenName);
+      localStorage.setItem('app_screen', screenName);
+    }
   };
 
-  
   // Handler Proses Pendaftaran dengan Konfirmasi Email Supabase Auth
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -132,7 +149,7 @@ function App() {
 
     try {
       // 1. Daftarkan Pengguna ke Supabase Auth
-      const { data, error } = await supabase.auth.signUp({
+      const { error } = await supabase.auth.signUp({
         email: rMail,
         password: rPass,
         options: {
@@ -140,7 +157,7 @@ function App() {
             full_name: rNama,
             phone_number: rHp,
           },
-          emailRedirectTo: window.location.origin, // Kembali ke aplikasi setelah klik link
+          emailRedirectTo: window.location.origin,
         },
       });
 
@@ -160,7 +177,6 @@ function App() {
         `Link konfirmasi keamanan telah dikirim ke email ${rMail}.\n\nSilakan buka aplikasi Gmail di HP Anda dan klik tombol "Konfirmasi Login" untuk menyelesaikan pendaftaran!`
       );
 
-      // Kembalikan pengguna ke layar masuk
       changeScreen('masuk');
     } catch (err) {
       setRegErr('Gagal mendaftar: ' + err.message);
@@ -193,7 +209,6 @@ function App() {
     setLoading(true);
 
     try {
-
       // Login ke Supabase Auth
       const { data, error } = await supabase.auth.signInWithPassword({
         email: lMail,
@@ -260,7 +275,6 @@ function App() {
   useEffect(() => {
     const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN' && session?.user?.email_confirmed_at) {
-        // Pengguna berhasil dikonfirmasi dari email
         changeScreen('menu');
       }
     });
@@ -274,11 +288,11 @@ function App() {
     setLoading(true);
     try {
       const { error } = await supabase.from('jadwal_pakan').update({
-        jam_pagi: parseInt(newData.jamPagi),
-        menit_pagi: parseInt(newData.menitPagi),
-        jam_sore: parseInt(newData.jamSore),
-        menit_sore: parseInt(newData.menitSore),
-        durasi_detik: parseInt(newData.durasi)
+        jam_pagi: parseInt(newData.jamPagi, 10),
+        menit_pagi: parseInt(newData.menitPagi, 10),
+        jam_sore: parseInt(newData.jamSore, 10),
+        menit_sore: parseInt(newData.menitSore, 10),
+        durasi_detik: parseInt(newData.durasi, 10)
       }).eq('pengenal', 1);
 
       if (error) throw error;
@@ -335,10 +349,8 @@ function App() {
 
   return (
     <div className="app-container">
-      {/* Halaman Welcome */}
       {currentScreen === 'welcome' && <Welcome setCurrentScreen={changeScreen} />}
       
-      {/* Halaman Daftar */}
       {currentScreen === 'daftar' && (
         <Daftar 
           handleRegister={handleRegister}
@@ -352,7 +364,6 @@ function App() {
         />
       )}
 
-      {/* Halaman Masuk */}
       {currentScreen === 'masuk' && (
         <Masuk 
           handleLogin={handleLogin}
@@ -363,7 +374,6 @@ function App() {
         />
       )}
 
-      {/* Menu Utama & Fitur Aplikasi */}
       {currentScreen === 'menu' && (
         <>
           {activePage === 'beranda' && (

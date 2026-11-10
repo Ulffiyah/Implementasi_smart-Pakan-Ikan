@@ -8,9 +8,8 @@
     "build": "vite build",
     "test:unit": "vitest run",
     "lint": "eslint .",
-    "test:bdd": "cucumber-js",
-    "test": "npm run test:unit && npm run test:bdd",
     "test:bdd": "node --import tsx node_modules/@cucumber/cucumber/bin/cucumber.js",
+    "test": "npm run test:unit && npm run test:bdd",
     "preview": "vite preview"
   },
   "dependencies": {

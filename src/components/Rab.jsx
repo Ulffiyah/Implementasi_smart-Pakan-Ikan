@@ -14,11 +14,12 @@ export default function Rab({ onBack }) {
   const [form, setForm] = useState({ bibitQty: '', bibitHarga: '', peletQty: '', peletHarga: '' });
   const [extraPengeluaran, setExtraPengeluaran] = useState([]);
   
-  // Ambil data dari localStorage secara otomatis agar tidak hilang saat pindah menu
+  // Ambil data dari localStorage dengan validasi array untuk mencegah Storage Poisoning
   const [jurnalList, setJurnalList] = useState(() => {
     try {
       const saved = localStorage.getItem("rabListDataV2");
-      return saved ? JSON.parse(saved) : [];
+      const parsed = saved ? JSON.parse(saved) : [];
+      return Array.isArray(parsed) ? parsed : [];
     } catch (e) {
       return [];
     }

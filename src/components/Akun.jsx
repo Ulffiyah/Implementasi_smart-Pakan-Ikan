@@ -12,11 +12,19 @@ export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
     setTempAkun({ ...tempAkun, [e.target.name]: e.target.value });
   };
 
-  // Simpan perubahan dan perbarui state global di App.jsx + localStorage
+  // Simpan perubahan dengan sanitasi data teks untuk mencegah storage poisoning
   const handleSave = (e) => {
     e.preventDefault();
-    onUpdateAkun(tempAkun);
-    localStorage.setItem('user_akun_data', JSON.stringify(tempAkun));
+
+    // Sanitasi input string dasar sebelum disimpan ke storage
+    const sanitizedData = {
+      nama: typeof tempAkun.nama === 'string' ? tempAkun.nama.trim().slice(0, 100) : '',
+      email: typeof tempAkun.email === 'string' ? tempAkun.email.trim().slice(0, 100) : '',
+      noHp: typeof tempAkun.noHp === 'string' ? tempAkun.noHp.trim().slice(0, 20) : ''
+    };
+
+    onUpdateAkun(sanitizedData);
+    localStorage.setItem('user_akun_data', JSON.stringify(sanitizedData));
     setIsEditing(false);
     alert("Data Akun Berhasil Diperbarui!");
   };

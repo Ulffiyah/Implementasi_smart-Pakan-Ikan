@@ -9,11 +9,12 @@ export default function JurnalHarian({ onBack }) {
     keterangan: ''
   });
 
-  // State daftar jurnal tersimpan (sinkron dengan localStorage)
+  // State daftar jurnal tersimpan dengan validasi keamanan array
   const [jurnalList, setJurnalList] = useState(() => {
     try {
       const saved = localStorage.getItem("jurnalDataV2");
-      return saved ? JSON.parse(saved) : [];
+      const parsed = saved ? JSON.parse(saved) : [];
+      return Array.isArray(parsed) ? parsed : [];
     } catch (e) {
       return [];
     }

@@ -246,7 +246,7 @@ function App() {
     }
   };
 
-  // Fetch data awal dari Supabase
+  // Fetch data awal dari Supabase dengan penanganan Promise yang aman (void)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -268,7 +268,7 @@ function App() {
         console.error("Gagal memuat data:", error);
       }
     };
-    fetchData();
+    void fetchData();
   }, []);
 
   // Deteksi Otomatis Klik Konfirmasi Email dari Gmail

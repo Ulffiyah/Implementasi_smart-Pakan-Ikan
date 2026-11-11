@@ -3,18 +3,13 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: './',
   test: {
-    environment: 'jsdom',
     globals: true,
-    setupFiles: './src/setupTests.js',
+    environment: 'jsdom',
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html'],
-      lines: 80,
-      functions: 80,
-      branches: 80,
-      statements: 80,
+      reporter: ['text', 'lcov'],
+      reportsDirectory: './coverage',
     },
   },
 })

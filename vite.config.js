@@ -11,7 +11,9 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'lcov'],
       reportsDirectory: 'coverage',
-      reportOnFailure: true
+      reportOnFailure: true,
+      include: ['src/**/*.{js,jsx}'],
+      exclude: ['src/main.jsx', 'src/**/*.test.{js,jsx}', 'src/setupTests.js', 'src/supabaseClient.js']
     }
   }
 })

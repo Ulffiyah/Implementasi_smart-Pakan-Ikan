@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 
+const labelStyle = { fontSize: '0.75rem', color: '#94a3b8', display: 'block', marginBottom: '3px' };
+const inputStyle = { width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #334155', background: '#1e293b', color: '#fff', boxSizing: 'border-box' };
+const linkButtonStyle = { background: 'none', border: 'none', padding: 0, font: 'inherit', color: '#38bdf8', cursor: 'pointer', fontWeight: 'bold' };
+
 export default function Masuk({ handleLogin, lMail, setLMail, lPass, setLPass, loginErr, onNavigate, styles }) {
   const [showPass, setShowPass] = useState(false);
 
   return (
     <section className="screen auth-screen" style={styles?.screen || { padding: '20px', maxWidth: '400px', margin: '0 auto', boxSizing: 'border-box', position: 'relative', zIndex: 10 }}>
-      
+
       {/* Tombol Kembali ke Beranda */}
       <div style={{ marginBottom: '10px', position: 'relative', zIndex: 20 }}>
-        <button 
+        <button
           type="button"
           onClick={() => onNavigate('welcome')}
           style={{ background: 'none', border: 'none', color: '#38bdf8', cursor: 'pointer', fontSize: '0.85rem', padding: '5px 0', display: 'flex', alignItems: 'center', gap: '5px', fontWeight: 'bold' }}
@@ -31,31 +35,34 @@ export default function Masuk({ handleLogin, lMail, setLMail, lPass, setLPass, l
 
       <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%', maxWidth: '320px', margin: '0 auto' }}>
         <div>
-          <label style={{ fontSize: '0.75rem', color: '#94a3b8', display: 'block', marginBottom: '3px' }}>Email</label>
-          <input 
-            style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #334155', background: '#1e293b', color: '#fff', boxSizing: 'border-box' }} 
-            type="email" 
-            placeholder="nama@email.com" 
-            value={lMail} 
-            onChange={e => setLMail(e.target.value)} 
-            required 
+          <label htmlFor="masuk-email" style={labelStyle}>Email</label>
+          <input
+            id="masuk-email"
+            style={inputStyle}
+            type="email"
+            placeholder="nama@email.com"
+            value={lMail}
+            onChange={e => setLMail(e.target.value)}
+            required
           />
         </div>
 
         <div style={{ position: 'relative' }}>
-          <label style={{ fontSize: '0.75rem', color: '#94a3b8', display: 'block', marginBottom: '3px' }}>Kata Sandi</label>
-          <input 
-            style={{ width: '100%', padding: '10px 40px 10px 10px', borderRadius: '8px', border: '1px solid #334155', background: '#1e293b', color: '#fff', boxSizing: 'border-box' }} 
-            type={showPass ? "text" : "password"} 
-            placeholder="Min. 8 karakter" 
-            value={lPass} 
-            onChange={e => setLPass(e.target.value)} 
-            required 
+          <label htmlFor="masuk-pass" style={labelStyle}>Kata Sandi</label>
+          <input
+            id="masuk-pass"
+            style={{ ...inputStyle, padding: '10px 40px 10px 10px' }}
+            type={showPass ? "text" : "password"}
+            placeholder="Min. 8 karakter"
+            value={lPass}
+            onChange={e => setLPass(e.target.value)}
+            required
           />
 
-          <button 
-            type="button" 
-            onClick={() => setShowPass(!showPass)} 
+          <button
+            type="button"
+            aria-label={showPass ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi'}
+            onClick={() => setShowPass(!showPass)}
             style={{ position: 'absolute', right: '12px', top: '32px', background: 'none', border: 'none', cursor: 'pointer', padding: '0', display: 'flex', alignItems: 'center', zIndex: 20 }}
           >
             {showPass ? (
@@ -65,9 +72,9 @@ export default function Masuk({ handleLogin, lMail, setLMail, lPass, setLPass, l
             )}
           </button>
         </div>
-        
-        <button 
-          style={{ width: '100%', marginTop: '10px', padding: '10px', background: '#38bdf8', color: '#0f172a', border: 'none', borderRadius: '25px', fontWeight: 'bold', cursor: 'pointer', zIndex: 20 }} 
+
+        <button
+          style={{ width: '100%', marginTop: '10px', padding: '10px', background: '#38bdf8', color: '#0f172a', border: 'none', borderRadius: '25px', fontWeight: 'bold', cursor: 'pointer', zIndex: 20 }}
           type="submit"
         >
           Masuk
@@ -76,12 +83,9 @@ export default function Masuk({ handleLogin, lMail, setLMail, lPass, setLPass, l
 
       <p style={{ textAlign: 'center', marginTop: '15px', color: '#94a3b8', fontSize: '0.8rem', position: 'relative', zIndex: 20 }}>
         Belum punya akun?{' '}
-        <span 
-          style={{ color: '#38bdf8', cursor: 'pointer', fontWeight: 'bold' }} 
-          onClick={() => onNavigate('daftar')} 
-        >
+        <button type="button" style={linkButtonStyle} onClick={() => onNavigate('daftar')}>
           Daftar di sini
-        </span>
+        </button>
       </p>
     </section>
   );

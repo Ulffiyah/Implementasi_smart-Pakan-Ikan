@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+const labelStyle = { fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '3px' };
+
 export default function JurnalHarian({ onBack }) {
   // State form utama Jurnal Harian
   const [form, setForm] = useState({
@@ -86,10 +88,10 @@ export default function JurnalHarian({ onBack }) {
   return (
     <div style={{ width: '100%', boxSizing: 'border-box' }}>
       {/* Tombol Kembali */}
-      <button 
-        type="button" 
-        className="btn-primary" 
-        style={{ backgroundColor: '#1e293b', border: '1px solid #334155', marginBottom: '15px', cursor: 'pointer' }} 
+      <button
+        type="button"
+        className="btn-primary"
+        style={{ backgroundColor: '#1e293b', border: '1px solid #334155', marginBottom: '15px', cursor: 'pointer' }}
         onClick={onBack}
       >
         ← Kembali ke Menu
@@ -102,38 +104,39 @@ export default function JurnalHarian({ onBack }) {
 
       {/* Form Input Jurnal Harian */}
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', textAlign: 'left' }}>
-        
+
         <div>
-          <label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '3px' }}>JUMLAH AWAL IKAN (EKOR)</label>
-          <input type="number" className="form-input" name="jumlahAwal" placeholder="Contoh: 100" value={form.jumlahAwal} onChange={handleChange} />
+          <label htmlFor="jurnal-jumlah-awal" style={labelStyle}>JUMLAH AWAL IKAN (EKOR)</label>
+          <input id="jurnal-jumlah-awal" type="number" className="form-input" name="jumlahAwal" placeholder="Contoh: 100" value={form.jumlahAwal} onChange={handleChange} />
         </div>
 
         <div>
-          <label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '3px' }}>JUMLAH IKAN MATI (EKOR)</label>
-          <input type="number" className="form-input" name="ikanMati" placeholder="Contoh: 2" value={form.ikanMati} onChange={handleChange} />
+          <label htmlFor="jurnal-ikan-mati" style={labelStyle}>JUMLAH IKAN MATI (EKOR)</label>
+          <input id="jurnal-ikan-mati" type="number" className="form-input" name="ikanMati" placeholder="Contoh: 2" value={form.ikanMati} onChange={handleChange} />
         </div>
 
         <div>
-          <label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '3px' }}>KONDISI AIR</label>
-          <input type="text" className="form-input" name="kondisiAir" placeholder="Contoh: Jernih / pH 7.2" value={form.kondisiAir} onChange={handleChange} />
+          <label htmlFor="jurnal-kondisi-air" style={labelStyle}>KONDISI AIR</label>
+          <input id="jurnal-kondisi-air" type="text" className="form-input" name="kondisiAir" placeholder="Contoh: Jernih / pH 7.2" value={form.kondisiAir} onChange={handleChange} />
         </div>
 
         <div>
-          <label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '3px' }}>CATATAN / KETERANGAN TAMBAHAN</label>
-          <textarea 
-            className="form-input" 
-            name="keterangan" 
-            rows="3" 
-            placeholder="Tulis kegiatan atau kondisi hari ini..." 
-            value={form.keterangan} 
+          <label htmlFor="jurnal-keterangan" style={labelStyle}>CATATAN / KETERANGAN TAMBAHAN</label>
+          <textarea
+            id="jurnal-keterangan"
+            className="form-input"
+            name="keterangan"
+            rows="3"
+            placeholder="Tulis kegiatan atau kondisi hari ini..."
+            value={form.keterangan}
             onChange={handleChange}
             style={{ resize: 'vertical' }}
           ></textarea>
         </div>
 
-        <button 
-          type="submit" 
-          className="btn-primary" 
+        <button
+          type="submit"
+          className="btn-primary"
           style={{ backgroundColor: '#10b981', color: '#ffffff', fontWeight: 'bold', marginTop: '5px', cursor: 'pointer' }}
         >
           💾 Simpan Jurnal Harian
@@ -143,7 +146,7 @@ export default function JurnalHarian({ onBack }) {
       {/* Daftar Jurnal Harian Tersimpan */}
       <div style={{ marginTop: '25px', borderTop: '1px solid #334155', paddingTop: '15px' }}>
         <h4 style={{ color: '#38bdf8', fontSize: '0.85rem', marginBottom: '10px', textAlign: 'center' }}>Jurnal Harian Tersimpan</h4>
-        
+
         {jurnalList.length === 0 ? (
           <div style={{ background: '#1e293b', padding: '15px', borderRadius: '8px', textAlign: 'center', color: '#64748b', fontSize: '0.75rem', border: '1px dashed #334155' }}>
             Belum ada jurnal harian tersimpan.
@@ -152,16 +155,16 @@ export default function JurnalHarian({ onBack }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {jurnalList.map((item, index) => (
               <div key={item.id || index} style={{ position: 'relative', background: '#1e293b', padding: '12px', borderRadius: '8px', border: '1px solid #334155', fontSize: '0.75rem', overflow: 'visible' }}>
-                
+
                 {/* Header Kartu */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                   <div style={{ color: '#38bdf8', fontWeight: 'bold' }}>📅 {item.tanggal || 'Hari ini'}</div>
-                  
+
                   {editingIndex !== index && (
                     <div style={{ position: 'relative' }}>
-                      <button 
-                        type="button" 
-                        onClick={() => setActiveMenuId(activeMenuId === index ? null : index)} 
+                      <button
+                        type="button"
+                        onClick={() => setActiveMenuId(activeMenuId === index ? null : index)}
                         style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.2rem', cursor: 'pointer', padding: '0 5px' }}
                       >
                         ⋮
@@ -181,7 +184,7 @@ export default function JurnalHarian({ onBack }) {
                 {editingIndex === index ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', background: '#0f172a', padding: '10px', borderRadius: '6px', border: '1px solid #38bdf8' }}>
                     <div style={{ color: '#38bdf8', fontWeight: 'bold', fontSize: '0.7rem' }}>Edit Jurnal Harian:</div>
-                    
+
                     <div>
                       <span style={{ color: '#94a3b8', fontSize: '0.65rem' }}>Jumlah Awal Ikan (Ekor):</span>
                       <input type="number" className="form-input" name="jumlahAwal" value={editForm.jumlahAwal || ''} onChange={handleEditChange} />

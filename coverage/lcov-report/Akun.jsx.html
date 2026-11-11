@@ -34,9 +34,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">37.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/15</span>
+                <span class='fraction'>6/16</span>
             </div>
         
             
@@ -55,9 +55,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.71% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/14</span>
+                <span class='fraction'>6/15</span>
             </div>
         
             
@@ -195,7 +195,10 @@
 <a name='L119'></a><a href='#L119'>119</a>
 <a name='L120'></a><a href='#L120'>120</a>
 <a name='L121'></a><a href='#L121'>121</a>
-<a name='L122'></a><a href='#L122'>122</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -212,7 +215,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -318,6 +320,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react';
 &nbsp;
+const labelStyle = { fontSize: '0.7rem', color: '#94a3b8', display: 'block', marginBottom: '3px' };
+&nbsp;
 export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
   const [isEditing, setIsEditing] = useState(false);
   const [tempAkun, setTempAkun] = useState(akunData || {
@@ -334,7 +338,6 @@ export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
   const <span class="fstat-no" title="function not covered" >handleSave = (e</span>) =&gt; {
 <span class="cstat-no" title="statement not covered" >    e.preventDefault();</span>
 &nbsp;
-    // Sanitasi input string dasar sebelum disimpan ke storage
     const sanitizedData = <span class="cstat-no" title="statement not covered" >{</span>
       nama: typeof tempAkun.nama === 'string' ? tempAkun.nama.trim().slice(0, 100) : '',
       email: typeof tempAkun.email === 'string' ? tempAkun.email.trim().slice(0, 100) : '',
@@ -350,10 +353,10 @@ export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
   return (
     &lt;div style={{ width: '100%', boxSizing: 'border-box' }}&gt;
       {/* Tombol Kembali ke Menu Utama */}
-      &lt;button 
-        type="button" 
-        className="btn-primary" 
-        style={{ backgroundColor: '#1e293b', border: '1px solid #334155', marginBottom: '15px', cursor: 'pointer' }} 
+      &lt;button
+        type="button"
+        className="btn-primary"
+        style={{ backgroundColor: '#1e293b', border: '1px solid #334155', marginBottom: '15px', cursor: 'pointer' }}
         onClick={onBack}
       &gt;
         ← Kembali ke Menu
@@ -365,7 +368,7 @@ export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
       &lt;/div&gt;
 &nbsp;
       &lt;div style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '10px', padding: '15px', textAlign: 'left', fontSize: '0.8rem' }}&gt;
-        
+&nbsp;
         {!isEditing ? (
           /* Mode Tampilan Informasi Akun */
           &lt;div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}&gt;
@@ -384,8 +387,8 @@ export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
               &lt;span style={{ color: '#e2e8f0' }}&gt;📱 {akunData?.noHp || 'Belum diisi'}&lt;/span&gt;
             &lt;/div&gt;
 &nbsp;
-            &lt;button 
-              type="button" 
+            &lt;button
+              type="button"
 <span class="fstat-no" title="function not covered" >              onClick={() =&gt; {</span> <span class="cstat-no" title="statement not covered" >setTempAkun(akunData); <span class="cstat-no" title="statement not covered" >s</span>etIsEditing(true); }}</span>
               className="btn-primary"
               style={{ backgroundColor: '#38bdf8', color: '#0f172a', fontWeight: 'bold', marginTop: '10px', cursor: 'pointer' }}
@@ -399,18 +402,18 @@ export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
             &lt;div style={{ color: '#38bdf8', fontWeight: 'bold', marginBottom: '4px' }}&gt;Edit Informasi Akun:&lt;/div&gt;
 &nbsp;
             &lt;div&gt;
-              &lt;label style={{ fontSize: '0.7rem', color: '#94a3b8', display: 'block', marginBottom: '3px' }}&gt;Nama Pengguna&lt;/label&gt;
-              &lt;input type="text" className="form-input" name="nama" value={tempAkun.nama} onChange={handleChange} required /&gt;
+              &lt;label htmlFor="akun-nama" style={labelStyle}&gt;Nama Pengguna&lt;/label&gt;
+              &lt;input id="akun-nama" type="text" className="form-input" name="nama" value={tempAkun.nama} onChange={handleChange} required /&gt;
             &lt;/div&gt;
 &nbsp;
             &lt;div&gt;
-              &lt;label style={{ fontSize: '0.7rem', color: '#94a3b8', display: 'block', marginBottom: '3px' }}&gt;Email&lt;/label&gt;
-              &lt;input type="email" className="form-input" name="email" value={tempAkun.email} onChange={handleChange} required /&gt;
+              &lt;label htmlFor="akun-email" style={labelStyle}&gt;Email&lt;/label&gt;
+              &lt;input id="akun-email" type="email" className="form-input" name="email" value={tempAkun.email} onChange={handleChange} required /&gt;
             &lt;/div&gt;
 &nbsp;
             &lt;div&gt;
-              &lt;label style={{ fontSize: '0.7rem', color: '#94a3b8', display: 'block', marginBottom: '3px' }}&gt;Nomor HP&lt;/label&gt;
-              &lt;input type="text" className="form-input" name="noHp" value={tempAkun.noHp} onChange={handleChange} required /&gt;
+              &lt;label htmlFor="akun-nohp" style={labelStyle}&gt;Nomor HP&lt;/label&gt;
+              &lt;input id="akun-nohp" type="text" className="form-input" name="noHp" value={tempAkun.noHp} onChange={handleChange} required /&gt;
             &lt;/div&gt;
 &nbsp;
             &lt;div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}&gt;
@@ -427,7 +430,7 @@ export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
       &lt;/div&gt;
 &nbsp;
       {/* Tombol Keluar Akun / Logout */}
-      &lt;button 
+      &lt;button
         type="button"
         onClick={onLogout}
         style={{ width: '100%', background: 'transparent', border: '1px solid #ef4444', color: '#ef4444', borderRadius: '8px', padding: '12px', marginTop: '20px', fontWeight: 'bold', cursor: 'pointer', fontSize: '0.8rem' }}
@@ -444,7 +447,7 @@ export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-11T01:35:57.700Z
+                at 2026-11-11T01:52:38.048Z
             </div>
         <script src="prettify.js"></script>
         <script>

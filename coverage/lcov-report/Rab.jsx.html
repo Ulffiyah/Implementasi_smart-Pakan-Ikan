@@ -34,9 +34,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.36% </span>
+                <span class="strong">64.77% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>56/87</span>
+                <span class='fraction'>57/88</span>
             </div>
         
             
@@ -55,9 +55,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.08% </span>
+                <span class="strong">67.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>53/79</span>
+                <span class='fraction'>54/80</span>
             </div>
         
             
@@ -370,7 +370,9 @@
 <a name='L294'></a><a href='#L294'>294</a>
 <a name='L295'></a><a href='#L295'>295</a>
 <a name='L296'></a><a href='#L296'>296</a>
-<a name='L297'></a><a href='#L297'>297</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L297'></a><a href='#L297'>297</a>
+<a name='L298'></a><a href='#L298'>298</a>
+<a name='L299'></a><a href='#L299'>299</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">14x</span>
@@ -381,6 +383,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">23x</span>
@@ -669,7 +673,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect } from 'react';
 &nbsp;
 const formatRupiah = (angka) =&gt; {
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!angka || isNaN(angka)) <span class="cstat-no" title="statement not covered" >return 'Rp 0,00';</span>
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (!angka || Number.isNaN(Number(angka))) <span class="cstat-no" title="statement not covered" >return 'Rp 0,00';</span>
   return new Intl.NumberFormat('id-ID', {
     style: 'currency',
     currency: 'IDR',
@@ -678,10 +682,12 @@ const formatRupiah = (angka) =&gt; {
   }).format(angka);
 };
 &nbsp;
+const labelStyle = { fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '4px' };
+&nbsp;
 export default function Rab({ onBack }) {
   const [form, setForm] = useState({ bibitQty: '', bibitHarga: '', peletQty: '', peletHarga: '' });
   const [extraPengeluaran, setExtraPengeluaran] = useState([]);
-  
+&nbsp;
   // Ambil data dari localStorage dengan validasi array untuk mencegah Storage Poisoning
   const [jurnalList, setJurnalList] = useState(() =&gt; {
     try {
@@ -809,25 +815,25 @@ export default function Rab({ onBack }) {
       {/* Form Input Utama */}
       &lt;form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px', textAlign: 'left' }}&gt;
         &lt;div&gt;
-          &lt;label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '4px' }}&gt;HARGA BIBIT IKAN&lt;/label&gt;
+          &lt;label htmlFor="rab-bibit-qty" style={labelStyle}&gt;HARGA BIBIT IKAN&lt;/label&gt;
           &lt;div style={{ display: 'flex', gap: '8px' }}&gt;
-            &lt;input type="number" className="form-input" name="bibitQty" placeholder="Jumlah (Ekor)" value={form.bibitQty} onChange={handleChange} /&gt;
-            &lt;input type="number" className="form-input" name="bibitHarga" placeholder="Harga (Rp)" value={form.bibitHarga} onChange={handleChange} /&gt;
+            &lt;input id="rab-bibit-qty" type="number" className="form-input" name="bibitQty" placeholder="Jumlah (Ekor)" value={form.bibitQty} onChange={handleChange} /&gt;
+            &lt;input aria-label="Harga bibit ikan" type="number" className="form-input" name="bibitHarga" placeholder="Harga (Rp)" value={form.bibitHarga} onChange={handleChange} /&gt;
           &lt;/div&gt;
         &lt;/div&gt;
 &nbsp;
         &lt;div&gt;
-          &lt;label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '4px' }}&gt;HARGA PELET&lt;/label&gt;
+          &lt;label htmlFor="rab-pelet-qty" style={labelStyle}&gt;HARGA PELET&lt;/label&gt;
           &lt;div style={{ display: 'flex', gap: '8px' }}&gt;
-            &lt;input type="number" className="form-input" name="peletQty" placeholder="Berat (Gram)" value={form.peletQty} onChange={handleChange} /&gt;
-            &lt;input type="number" className="form-input" name="peletHarga" placeholder="Harga (Rp)" value={form.peletHarga} onChange={handleChange} /&gt;
+            &lt;input id="rab-pelet-qty" type="number" className="form-input" name="peletQty" placeholder="Berat (Gram)" value={form.peletQty} onChange={handleChange} /&gt;
+            &lt;input aria-label="Harga pelet" type="number" className="form-input" name="peletHarga" placeholder="Harga (Rp)" value={form.peletHarga} onChange={handleChange} /&gt;
           &lt;/div&gt;
         &lt;/div&gt;
 &nbsp;
         {extraPengeluaran.map((item, index) =&gt; (
           &lt;div key={item.id} style={{ position: 'relative', background: '#1e293b', padding: '10px', borderRadius: '10px', border: '1px solid #334155' }}&gt;
             &lt;div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}&gt;
-              &lt;label style={{ fontSize: '0.7rem', color: '#38bdf8', fontWeight: 'bold' }}&gt;PENGELUARAN TAMBAHAN {index + 1}&lt;/label&gt;
+              &lt;span style={{ fontSize: '0.7rem', color: '#38bdf8', fontWeight: 'bold' }}&gt;PENGELUARAN TAMBAHAN {index + 1}&lt;/span&gt;
               &lt;button type="button" <span class="fstat-no" title="function not covered" >onClick={() =&gt; <span class="cstat-no" title="statement not covered" >h</span>andleHapusExtra(item.id)}</span> style={{ background: 'none', border: 'none', color: '#ef4444', fontSize: '0.75rem', cursor: 'pointer' }}&gt;Hapus&lt;/button&gt;
             &lt;/div&gt;
             &lt;div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}&gt;
@@ -852,7 +858,7 @@ export default function Rab({ onBack }) {
       {/* Daftar Jurnal Tersimpan */}
       &lt;div style={{ marginTop: '25px', borderTop: '1px solid #334155', paddingTop: '15px' }}&gt;
         &lt;h4 style={{ color: '#38bdf8', fontSize: '0.85rem', marginBottom: '10px', textAlign: 'center' }}&gt;Jurnal RAB Tersimpan&lt;/h4&gt;
-        
+&nbsp;
         {jurnalList.length === 0 ? (
           &lt;div style={{ background: '#1e293b', padding: '15px', borderRadius: '8px', textAlign: 'center', color: '#64748b', fontSize: '0.75rem', border: '1px dashed #334155' }}&gt;
             Belum ada jurnal RAB tersimpan.
@@ -861,11 +867,11 @@ export default function Rab({ onBack }) {
           &lt;div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}&gt;
             {jurnalList.map((item, index) =&gt; (
               &lt;div key={item.id || <span class="branch-1 cbranch-no" title="branch not covered" >index} s</span>tyle={{ position: 'relative', background: '#1e293b', padding: '12px', borderRadius: '8px', border: '1px solid #334155', fontSize: '0.75rem' }}&gt;
-                
+&nbsp;
                 {/* Header Kartu */}
                 &lt;div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}&gt;
                   &lt;div style={{ color: '#38bdf8', fontWeight: 'bold' }}&gt;📅 {item.tanggal || <span class="branch-1 cbranch-no" title="branch not covered" >'Hari ini'}&lt;/div&gt;</span>
-                  
+&nbsp;
                   {editingIndex !== index &amp;&amp; (
                     &lt;div style={{ position: 'relative' }}&gt;
                       &lt;button type="button" onClick={() =&gt; setActiveMenuId(activeMenuId === index ? <span class="branch-0 cbranch-no" title="branch not covered" >null : i</span>ndex)} style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.2rem', cursor: 'pointer', padding: '0 5px' }}&gt;
@@ -886,7 +892,7 @@ export default function Rab({ onBack }) {
                 {editingIndex === index ? (
 <span class="branch-0 cbranch-no" title="branch not covered" >                  &lt;div style={{ display: 'flex', flexDirection: 'column', gap: '8px', background: '#0f172a', padding: '10px', borderRadius: '6px', border: '1px solid #38bdf8' }}&gt;</span>
                     &lt;div style={{ color: '#38bdf8', fontWeight: 'bold', fontSize: '0.7rem' }}&gt;Edit Semua Data RAB:&lt;/div&gt;
-                    
+&nbsp;
                     &lt;div&gt;
                       &lt;span style={{ color: '#94a3b8', fontSize: '0.65rem' }}&gt;Bibit Ikan:&lt;/span&gt;
                       &lt;div style={{ display: 'flex', gap: '6px', marginTop: '2px' }}&gt;
@@ -940,7 +946,7 @@ export default function Rab({ onBack }) {
                   &lt;&gt;
                     {item.bibitHarga &amp;&amp; &lt;div&gt;🐟 Bibit: {item.bibitQty || 0} ekor ({formatRupiah(item.bibitHarga)})&lt;/div&gt;}
                     {item.peletHarga &amp;&amp; &lt;div&gt;🥣 Pelet: {item.peletQty || <span class="branch-1 cbranch-no" title="branch not covered" >0} </span>gram ({formatRupiah(item.peletHarga)})&lt;/div&gt;}
-                    
+&nbsp;
                     {item.extraPengeluaran &amp;&amp; item.extraPengeluaran.map((ex, idx) =&gt; (
                       ex.nama &amp;&amp; (
                         &lt;div key={idx} style={{ color: '#f59e0b', marginTop: '2px' }}&gt;
@@ -969,7 +975,7 @@ export default function Rab({ onBack }) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-11T01:35:57.700Z
+                at 2026-11-11T01:52:38.048Z
             </div>
         <script src="prettify.js"></script>
         <script>

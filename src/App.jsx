@@ -15,8 +15,15 @@ import Akun from './components/Akun';
 
 const supabase = createClient('https://tqfspwtaexpxlmflaskd.supabase.co', 'sb_publishable_QTf6sd3BIoxhRf7u67-1JA_lPiLm_EB');
 
+// Membersihkan data akun sebelum disimpan ke localStorage (mencegah storage poisoning)
+const sanitizeAkun = (akun) => ({
+  nama: String(akun?.nama ?? '').trim().slice(0, 100),
+  email: String(akun?.email ?? '').trim().slice(0, 100),
+  noHp: String(akun?.noHp ?? '').trim().slice(0, 20)
+});
+
 function App() {
- // BAGIAN INI: Pengambilan 'app_screen' dari localStorage
+  // Pengambilan 'app_screen' dari localStorage
   const [currentScreen, setCurrentScreen] = useState(() => {
     const savedScreen = localStorage.getItem('app_screen');
     const allowedScreens = ['welcome', 'daftar', 'masuk', 'menu'];
@@ -38,7 +45,7 @@ function App() {
   const [lPass, setLPass] = useState('');
   const [loginErr, setLoginErr] = useState('');
 
-  // BAGIAN INI: Pengambilan 'user_akun_data' dari localStorage
+  // Pengambilan 'user_akun_data' dari localStorage
   const [akunData, setAkunData] = useState(() => {
     try {
       const savedAkun = localStorage.getItem('user_akun_data');
@@ -62,7 +69,7 @@ function App() {
   });
 
   useEffect(() => {
-    localStorage.setItem('user_akun_data', JSON.stringify(akunData));
+    localStorage.setItem('user_akun_data', JSON.stringify(sanitizeAkun(akunData)));
   }, [akunData]);
 
   // Data Pakan
@@ -163,11 +170,11 @@ function App() {
       if (error) throw error;
 
       // 2. Simpan Sementara Data Akun ke State & LocalStorage
-      const dataAkunBaru = {
+      const dataAkunBaru = sanitizeAkun({
         nama: rNama,
         email: rMail,
         noHp: rHp
-      };
+      });
       setAkunData(dataAkunBaru);
       localStorage.setItem('user_akun_data', JSON.stringify(dataAkunBaru));
 
@@ -227,11 +234,11 @@ function App() {
       // Update data akun dari meta data Supabase jika tersedia
       const userData = data.user.user_metadata;
       if (userData) {
-        const loggedInAkun = {
+        const loggedInAkun = sanitizeAkun({
           nama: userData.full_name || akunData.nama,
           email: data.user.email,
           noHp: userData.phone_number || akunData.noHp
-        };
+        });
         setAkunData(loggedInAkun);
         localStorage.setItem('user_akun_data', JSON.stringify(loggedInAkun));
       }
@@ -287,11 +294,11 @@ function App() {
     setLoading(true);
     try {
       const { error } = await supabase.from('jadwal_pakan').update({
-        jam_pagi: parseInt(newData.jamPagi, 10),
-        menit_pagi: parseInt(newData.menitPagi, 10),
-        jam_sore: parseInt(newData.jamSore, 10),
-        menit_sore: parseInt(newData.menitSore, 10),
-        durasi_detik: parseInt(newData.durasi, 10)
+        jam_pagi: Number.parseInt(newData.jamPagi, 10),
+        menit_pagi: Number.parseInt(newData.menitPagi, 10),
+        jam_sore: Number.parseInt(newData.jamSore, 10),
+        menit_sore: Number.parseInt(newData.menitSore, 10),
+        durasi_detik: Number.parseInt(newData.durasi, 10)
       }).eq('pengenal', 1);
 
       if (error) throw error;
@@ -349,9 +356,9 @@ function App() {
   return (
     <div className="app-container">
       {currentScreen === 'welcome' && <Welcome setCurrentScreen={changeScreen} />}
-      
+
       {currentScreen === 'daftar' && (
-        <Daftar 
+        <Daftar
           handleRegister={handleRegister}
           rNama={rNama} setRNama={setRNama}
           rMail={rMail} setRMail={setRMail}
@@ -364,7 +371,7 @@ function App() {
       )}
 
       {currentScreen === 'masuk' && (
-        <Masuk 
+        <Masuk
           handleLogin={handleLogin}
           lMail={lMail} setLMail={setLMail}
           lPass={lPass} setLPass={setLPass}
@@ -376,52 +383,52 @@ function App() {
       {currentScreen === 'menu' && (
         <>
           {activePage === 'beranda' && (
-            <Beranda 
-              setActivePage={setActivePage} 
-              onLogout={() => changeScreen('welcome')} 
-              catatanLength={catatan.length} 
+            <Beranda
+              setActivePage={setActivePage}
+              onLogout={() => changeScreen('welcome')}
+              catatanLength={catatan.length}
             />
           )}
 
           {activePage === 'rab' && (
-            <Rab 
-              rabList={rabList} 
-              onSaveRab={handleSaveRab} 
-              onDeleteRab={handleDeleteRab} 
-              onBack={() => setActivePage('beranda')} 
+            <Rab
+              rabList={rabList}
+              onSaveRab={handleSaveRab}
+              onDeleteRab={handleDeleteRab}
+              onBack={() => setActivePage('beranda')}
             />
           )}
 
           {activePage === 'pengaturan' && (
-            <PengaturanPakan 
-              data={pakanData} 
-              onUpdate={handleUpdatePakan} 
-              onBack={() => setActivePage('beranda')} 
-              loading={loading} 
+            <PengaturanPakan
+              data={pakanData}
+              onUpdate={handleUpdatePakan}
+              onBack={() => setActivePage('beranda')}
+              loading={loading}
             />
           )}
 
           {activePage === 'jurnal' && (
-            <Jurnal 
-              onBack={() => setActivePage('beranda')} 
+            <Jurnal
+              onBack={() => setActivePage('beranda')}
             />
           )}
 
           {activePage === 'wifi' && (
-            <Wifi 
-              wifiData={wifiData} 
-              onUpdateWifi={handleUpdateWifi} 
-              onBack={() => setActivePage('beranda')} 
-              loading={loading} 
+            <Wifi
+              wifiData={wifiData}
+              onUpdateWifi={handleUpdateWifi}
+              onBack={() => setActivePage('beranda')}
+              loading={loading}
             />
           )}
 
           {activePage === 'akun' && (
-            <Akun 
+            <Akun
               akunData={akunData}
               onUpdateAkun={setAkunData}
-              onBack={() => setActivePage('beranda')} 
-              onLogout={() => changeScreen('welcome')} 
+              onBack={() => setActivePage('beranda')}
+              onLogout={() => changeScreen('welcome')}
             />
           )}
         </>

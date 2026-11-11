@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+const labelStyle = { fontSize: '0.7rem', color: '#94a3b8', display: 'block', marginBottom: '3px' };
+
 export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
   const [isEditing, setIsEditing] = useState(false);
   const [tempAkun, setTempAkun] = useState(akunData || {
@@ -16,7 +18,6 @@ export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
   const handleSave = (e) => {
     e.preventDefault();
 
-    // Sanitasi input string dasar sebelum disimpan ke storage
     const sanitizedData = {
       nama: typeof tempAkun.nama === 'string' ? tempAkun.nama.trim().slice(0, 100) : '',
       email: typeof tempAkun.email === 'string' ? tempAkun.email.trim().slice(0, 100) : '',
@@ -32,10 +33,10 @@ export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
   return (
     <div style={{ width: '100%', boxSizing: 'border-box' }}>
       {/* Tombol Kembali ke Menu Utama */}
-      <button 
-        type="button" 
-        className="btn-primary" 
-        style={{ backgroundColor: '#1e293b', border: '1px solid #334155', marginBottom: '15px', cursor: 'pointer' }} 
+      <button
+        type="button"
+        className="btn-primary"
+        style={{ backgroundColor: '#1e293b', border: '1px solid #334155', marginBottom: '15px', cursor: 'pointer' }}
         onClick={onBack}
       >
         ← Kembali ke Menu
@@ -47,7 +48,7 @@ export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
       </div>
 
       <div style={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '10px', padding: '15px', textAlign: 'left', fontSize: '0.8rem' }}>
-        
+
         {!isEditing ? (
           /* Mode Tampilan Informasi Akun */
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
@@ -66,8 +67,8 @@ export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
               <span style={{ color: '#e2e8f0' }}>📱 {akunData?.noHp || 'Belum diisi'}</span>
             </div>
 
-            <button 
-              type="button" 
+            <button
+              type="button"
               onClick={() => { setTempAkun(akunData); setIsEditing(true); }}
               className="btn-primary"
               style={{ backgroundColor: '#38bdf8', color: '#0f172a', fontWeight: 'bold', marginTop: '10px', cursor: 'pointer' }}
@@ -81,18 +82,18 @@ export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
             <div style={{ color: '#38bdf8', fontWeight: 'bold', marginBottom: '4px' }}>Edit Informasi Akun:</div>
 
             <div>
-              <label style={{ fontSize: '0.7rem', color: '#94a3b8', display: 'block', marginBottom: '3px' }}>Nama Pengguna</label>
-              <input type="text" className="form-input" name="nama" value={tempAkun.nama} onChange={handleChange} required />
+              <label htmlFor="akun-nama" style={labelStyle}>Nama Pengguna</label>
+              <input id="akun-nama" type="text" className="form-input" name="nama" value={tempAkun.nama} onChange={handleChange} required />
             </div>
 
             <div>
-              <label style={{ fontSize: '0.7rem', color: '#94a3b8', display: 'block', marginBottom: '3px' }}>Email</label>
-              <input type="email" className="form-input" name="email" value={tempAkun.email} onChange={handleChange} required />
+              <label htmlFor="akun-email" style={labelStyle}>Email</label>
+              <input id="akun-email" type="email" className="form-input" name="email" value={tempAkun.email} onChange={handleChange} required />
             </div>
 
             <div>
-              <label style={{ fontSize: '0.7rem', color: '#94a3b8', display: 'block', marginBottom: '3px' }}>Nomor HP</label>
-              <input type="text" className="form-input" name="noHp" value={tempAkun.noHp} onChange={handleChange} required />
+              <label htmlFor="akun-nohp" style={labelStyle}>Nomor HP</label>
+              <input id="akun-nohp" type="text" className="form-input" name="noHp" value={tempAkun.noHp} onChange={handleChange} required />
             </div>
 
             <div style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
@@ -109,7 +110,7 @@ export default function Akun({ akunData, onUpdateAkun, onBack, onLogout }) {
       </div>
 
       {/* Tombol Keluar Akun / Logout */}
-      <button 
+      <button
         type="button"
         onClick={onLogout}
         style={{ width: '100%', background: 'transparent', border: '1px solid #ef4444', color: '#ef4444', borderRadius: '8px', padding: '12px', marginTop: '20px', fontWeight: 'bold', cursor: 'pointer', fontSize: '0.8rem' }}

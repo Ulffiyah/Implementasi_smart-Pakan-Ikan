@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 
+const labelStyle = { fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '6px' };
+const rowStyle = { display: 'flex', gap: '10px', alignItems: 'center' };
+
 export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '30', jamPagi: '10', menitPagi: '56', jamSore: '10', menitSore: '57', durasi: '10' }, onUpdate, onBack, loading }) {
   const [form, setForm] = useState(data);
 
@@ -10,7 +13,7 @@ export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '3
   // Fungsi menambah kolom jadwal baru (Jam : Menit)
   const handleTambahKolom = () => {
     setExtraJadwal([
-      ...extraJadwal, 
+      ...extraJadwal,
       { id: Date.now(), jam: '', menit: '' }
     ]);
   };
@@ -42,34 +45,34 @@ export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '3
 
       {/* Form Utama */}
       <form onSubmit={(e) => { e.preventDefault(); onUpdate({ ...form, extraJadwal }); }} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-        
+
         {/* Rentang Tanggal */}
         <div>
-          <label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}>RENTANG TANGGAL</label>
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-            <input type="number" className="form-input" value={form.tglMulai || ''} onChange={(e) => setForm({...form, tglMulai: e.target.value})} required />
+          <label htmlFor="pakan-tgl-mulai" style={labelStyle}>RENTANG TANGGAL</label>
+          <div style={rowStyle}>
+            <input id="pakan-tgl-mulai" type="number" className="form-input" value={form.tglMulai || ''} onChange={(e) => setForm({ ...form, tglMulai: e.target.value })} required />
             <span style={{ color: '#94a3b8' }}>s/d</span>
-            <input type="number" className="form-input" value={form.tglSelesai || ''} onChange={(e) => setForm({...form, tglSelesai: e.target.value})} required />
+            <input aria-label="Tanggal selesai" type="number" className="form-input" value={form.tglSelesai || ''} onChange={(e) => setForm({ ...form, tglSelesai: e.target.value })} required />
           </div>
         </div>
 
         {/* Jadwal Pagi */}
         <div>
-          <label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}>JADWAL PAGI</label>
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-            <input type="number" className="form-input" value={form.jamPagi || ''} onChange={(e) => setForm({...form, jamPagi: e.target.value})} required />
+          <label htmlFor="pakan-jam-pagi" style={labelStyle}>JADWAL PAGI</label>
+          <div style={rowStyle}>
+            <input id="pakan-jam-pagi" type="number" className="form-input" value={form.jamPagi || ''} onChange={(e) => setForm({ ...form, jamPagi: e.target.value })} required />
             <span style={{ color: '#fff', fontWeight: 'bold' }}>:</span>
-            <input type="number" className="form-input" value={form.menitPagi || ''} onChange={(e) => setForm({...form, menitPagi: e.target.value})} required />
+            <input aria-label="Menit pagi" type="number" className="form-input" value={form.menitPagi || ''} onChange={(e) => setForm({ ...form, menitPagi: e.target.value })} required />
           </div>
         </div>
 
         {/* Jadwal Sore */}
         <div>
-          <label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}>JADWAL SORE</label>
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-            <input type="number" className="form-input" value={form.jamSore || ''} onChange={(e) => setForm({...form, jamSore: e.target.value})} required />
+          <label htmlFor="pakan-jam-sore" style={labelStyle}>JADWAL SORE</label>
+          <div style={rowStyle}>
+            <input id="pakan-jam-sore" type="number" className="form-input" value={form.jamSore || ''} onChange={(e) => setForm({ ...form, jamSore: e.target.value })} required />
             <span style={{ color: '#fff', fontWeight: 'bold' }}>:</span>
-            <input type="number" className="form-input" value={form.menitSore || ''} onChange={(e) => setForm({...form, menitSore: e.target.value})} required />
+            <input aria-label="Menit sore" type="number" className="form-input" value={form.menitSore || ''} onChange={(e) => setForm({ ...form, menitSore: e.target.value })} required />
           </div>
         </div>
 
@@ -77,13 +80,13 @@ export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '3
         {extraJadwal.map((item, index) => (
           <div key={item.id} style={{ position: 'relative', background: '#1e293b', padding: '10px', borderRadius: '10px', border: '1px solid #334155' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
-              <label style={{ fontSize: '0.7rem', color: '#38bdf8', fontWeight: 'bold' }}>JADWAL TAMBAHAN {index + 1}</label>
-              
+              <span style={{ fontSize: '0.7rem', color: '#38bdf8', fontWeight: 'bold' }}>JADWAL TAMBAHAN {index + 1}</span>
+
               {/* Tombol Titik Tiga Vertikal (⋮) */}
               <div style={{ position: 'relative' }}>
-                <button 
-                  type="button" 
-                  onClick={() => setMenuId(menuId === item.id ? null : item.id)} 
+                <button
+                  type="button"
+                  onClick={() => setMenuId(menuId === item.id ? null : item.id)}
                   style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.2rem', cursor: 'pointer', padding: '0 5px' }}
                 >
                   ⋮
@@ -99,7 +102,7 @@ export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '3
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+            <div style={rowStyle}>
               <input type="number" className="form-input" placeholder="Jam" value={item.jam} onChange={(e) => handleExtraChange(item.id, 'jam', e.target.value)} required />
               <span style={{ color: '#fff', fontWeight: 'bold' }}>:</span>
               <input type="number" className="form-input" placeholder="Menit" value={item.menit} onChange={(e) => handleExtraChange(item.id, 'menit', e.target.value)} required />
@@ -108,8 +111,8 @@ export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '3
         ))}
 
         {/* Tombol Tambah Jadwal Pakan */}
-        <button 
-          type="button" 
+        <button
+          type="button"
           onClick={handleTambahKolom}
           style={{ background: 'none', border: 'none', color: '#38bdf8', fontSize: '0.85rem', fontWeight: 'bold', cursor: 'pointer', textAlign: 'center', padding: '8px 0', borderTop: '1px solid #334155', borderBottom: '1px solid #334155', margin: '5px 0' }}
         >
@@ -118,8 +121,8 @@ export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '3
 
         {/* Durasi (Detik) - Cukup 1 di bawah */}
         <div>
-          <label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}>DURASI (DETIK)</label>
-          <input type="number" className="form-input" value={form.durasi || ''} onChange={(e) => setForm({...form, durasi: e.target.value})} required />
+          <label htmlFor="pakan-durasi" style={labelStyle}>DURASI (DETIK)</label>
+          <input id="pakan-durasi" type="number" className="form-input" value={form.durasi || ''} onChange={(e) => setForm({ ...form, durasi: e.target.value })} required />
         </div>
 
         {/* Tombol Simpan / Perbarui */}

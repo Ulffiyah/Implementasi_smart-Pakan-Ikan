@@ -19,7 +19,7 @@
   background-color: #059669;
   color: white;
   border: none;
-  border-radius: 10px; /* Diperbaiki dari borderRadius */
+  border-radius: 10px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
@@ -32,11 +32,17 @@
 }
 
 .card-menu {
+  display: block;
+  width: 100%;
   padding: 18px 20px;
   background-color: #334155;
+  border: none;
   border-radius: 15px;
+  color: inherit;
+  font: inherit;
   cursor: pointer;
   text-align: center;
+  box-sizing: border-box;
   transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
@@ -45,10 +51,15 @@
   transform: translateY(-2px);
 }
 
+.card-menu:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 2px;
+}
+
 .form-input {
   width: 100%;
   padding: 12px;
-  border: 1px solid #475569; /* Diperhalus sedikit agar garisnya lebih jelas */
+  border: 1px solid #475569;
   border-radius: 10px;
   font-size: 1rem;
   background-color: #0f172a;
@@ -59,5 +70,5 @@
 }
 
 .form-input:focus {
-  border-color: #38bdf8; /* Efek menyala biru saat kotak input diklik */
+  border-color: #38bdf8;
 }

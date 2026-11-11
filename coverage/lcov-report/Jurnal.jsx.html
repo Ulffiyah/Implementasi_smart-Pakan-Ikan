@@ -34,9 +34,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.55% </span>
+                <span class="strong">56.52% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/45</span>
+                <span class='fraction'>26/46</span>
             </div>
         
             
@@ -55,9 +55,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.55% </span>
+                <span class="strong">56.52% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/45</span>
+                <span class='fraction'>26/46</span>
             </div>
         
             
@@ -304,7 +304,12 @@
 <a name='L228'></a><a href='#L228'>228</a>
 <a name='L229'></a><a href='#L229'>229</a>
 <a name='L230'></a><a href='#L230'>230</a>
-<a name='L231'></a><a href='#L231'>231</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L231'></a><a href='#L231'>231</a>
+<a name='L232'></a><a href='#L232'>232</a>
+<a name='L233'></a><a href='#L233'>233</a>
+<a name='L234'></a><a href='#L234'>234</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -390,6 +395,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -536,6 +542,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect } from 'react';
 &nbsp;
+const labelStyle = { fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '3px' };
+&nbsp;
 export default function JurnalHarian({ onBack }) {
   // State form utama Jurnal Harian
   const [form, setForm] = useState({
@@ -622,10 +630,10 @@ export default function JurnalHarian({ onBack }) {
   return (
     &lt;div style={{ width: '100%', boxSizing: 'border-box' }}&gt;
       {/* Tombol Kembali */}
-      &lt;button 
-        type="button" 
-        className="btn-primary" 
-        style={{ backgroundColor: '#1e293b', border: '1px solid #334155', marginBottom: '15px', cursor: 'pointer' }} 
+      &lt;button
+        type="button"
+        className="btn-primary"
+        style={{ backgroundColor: '#1e293b', border: '1px solid #334155', marginBottom: '15px', cursor: 'pointer' }}
         onClick={onBack}
       &gt;
         ← Kembali ke Menu
@@ -638,38 +646,39 @@ export default function JurnalHarian({ onBack }) {
 &nbsp;
       {/* Form Input Jurnal Harian */}
       &lt;form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '10px', textAlign: 'left' }}&gt;
-        
+&nbsp;
         &lt;div&gt;
-          &lt;label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '3px' }}&gt;JUMLAH AWAL IKAN (EKOR)&lt;/label&gt;
-          &lt;input type="number" className="form-input" name="jumlahAwal" placeholder="Contoh: 100" value={form.jumlahAwal} onChange={handleChange} /&gt;
+          &lt;label htmlFor="jurnal-jumlah-awal" style={labelStyle}&gt;JUMLAH AWAL IKAN (EKOR)&lt;/label&gt;
+          &lt;input id="jurnal-jumlah-awal" type="number" className="form-input" name="jumlahAwal" placeholder="Contoh: 100" value={form.jumlahAwal} onChange={handleChange} /&gt;
         &lt;/div&gt;
 &nbsp;
         &lt;div&gt;
-          &lt;label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '3px' }}&gt;JUMLAH IKAN MATI (EKOR)&lt;/label&gt;
-          &lt;input type="number" className="form-input" name="ikanMati" placeholder="Contoh: 2" value={form.ikanMati} onChange={handleChange} /&gt;
+          &lt;label htmlFor="jurnal-ikan-mati" style={labelStyle}&gt;JUMLAH IKAN MATI (EKOR)&lt;/label&gt;
+          &lt;input id="jurnal-ikan-mati" type="number" className="form-input" name="ikanMati" placeholder="Contoh: 2" value={form.ikanMati} onChange={handleChange} /&gt;
         &lt;/div&gt;
 &nbsp;
         &lt;div&gt;
-          &lt;label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '3px' }}&gt;KONDISI AIR&lt;/label&gt;
-          &lt;input type="text" className="form-input" name="kondisiAir" placeholder="Contoh: Jernih / pH 7.2" value={form.kondisiAir} onChange={handleChange} /&gt;
+          &lt;label htmlFor="jurnal-kondisi-air" style={labelStyle}&gt;KONDISI AIR&lt;/label&gt;
+          &lt;input id="jurnal-kondisi-air" type="text" className="form-input" name="kondisiAir" placeholder="Contoh: Jernih / pH 7.2" value={form.kondisiAir} onChange={handleChange} /&gt;
         &lt;/div&gt;
 &nbsp;
         &lt;div&gt;
-          &lt;label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '3px' }}&gt;CATATAN / KETERANGAN TAMBAHAN&lt;/label&gt;
-          &lt;textarea 
-            className="form-input" 
-            name="keterangan" 
-            rows="3" 
-            placeholder="Tulis kegiatan atau kondisi hari ini..." 
-            value={form.keterangan} 
+          &lt;label htmlFor="jurnal-keterangan" style={labelStyle}&gt;CATATAN / KETERANGAN TAMBAHAN&lt;/label&gt;
+          &lt;textarea
+            id="jurnal-keterangan"
+            className="form-input"
+            name="keterangan"
+            rows="3"
+            placeholder="Tulis kegiatan atau kondisi hari ini..."
+            value={form.keterangan}
             onChange={handleChange}
             style={{ resize: 'vertical' }}
           &gt;&lt;/textarea&gt;
         &lt;/div&gt;
 &nbsp;
-        &lt;button 
-          type="submit" 
-          className="btn-primary" 
+        &lt;button
+          type="submit"
+          className="btn-primary"
           style={{ backgroundColor: '#10b981', color: '#ffffff', fontWeight: 'bold', marginTop: '5px', cursor: 'pointer' }}
         &gt;
           💾 Simpan Jurnal Harian
@@ -679,7 +688,7 @@ export default function JurnalHarian({ onBack }) {
       {/* Daftar Jurnal Harian Tersimpan */}
       &lt;div style={{ marginTop: '25px', borderTop: '1px solid #334155', paddingTop: '15px' }}&gt;
         &lt;h4 style={{ color: '#38bdf8', fontSize: '0.85rem', marginBottom: '10px', textAlign: 'center' }}&gt;Jurnal Harian Tersimpan&lt;/h4&gt;
-        
+&nbsp;
         {jurnalList.length === 0 ? (
           &lt;div style={{ background: '#1e293b', padding: '15px', borderRadius: '8px', textAlign: 'center', color: '#64748b', fontSize: '0.75rem', border: '1px dashed #334155' }}&gt;
             Belum ada jurnal harian tersimpan.
@@ -688,16 +697,16 @@ export default function JurnalHarian({ onBack }) {
           &lt;div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}&gt;
             {jurnalList.map((item, index) =&gt; (
               &lt;div key={item.id || <span class="branch-1 cbranch-no" title="branch not covered" >index} s</span>tyle={{ position: 'relative', background: '#1e293b', padding: '12px', borderRadius: '8px', border: '1px solid #334155', fontSize: '0.75rem', overflow: 'visible' }}&gt;
-                
+&nbsp;
                 {/* Header Kartu */}
                 &lt;div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}&gt;
                   &lt;div style={{ color: '#38bdf8', fontWeight: 'bold' }}&gt;📅 {item.tanggal || <span class="branch-1 cbranch-no" title="branch not covered" >'Hari ini'}&lt;/div&gt;</span>
-                  
+&nbsp;
                   {editingIndex !== index &amp;&amp; (
                     &lt;div style={{ position: 'relative' }}&gt;
-                      &lt;button 
-                        type="button" 
-<span class="fstat-no" title="function not covered" >                        onClick={() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etActiveMenuId(activeMenuId === index ? null : index)} </span>
+                      &lt;button
+                        type="button"
+<span class="fstat-no" title="function not covered" >                        onClick={() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etActiveMenuId(activeMenuId === index ? null : index)}</span>
                         style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.2rem', cursor: 'pointer', padding: '0 5px' }}
                       &gt;
                         ⋮
@@ -717,7 +726,7 @@ export default function JurnalHarian({ onBack }) {
                 {editingIndex === index ? (
 <span class="branch-0 cbranch-no" title="branch not covered" >                  &lt;div style={{ display: 'flex', flexDirection: 'column', gap: '8px', background: '#0f172a', padding: '10px', borderRadius: '6px', border: '1px solid #38bdf8' }}&gt;</span>
                     &lt;div style={{ color: '#38bdf8', fontWeight: 'bold', fontSize: '0.7rem' }}&gt;Edit Jurnal Harian:&lt;/div&gt;
-                    
+&nbsp;
                     &lt;div&gt;
                       &lt;span style={{ color: '#94a3b8', fontSize: '0.65rem' }}&gt;Jumlah Awal Ikan (Ekor):&lt;/span&gt;
                       &lt;input type="number" className="form-input" name="jumlahAwal" value={editForm.jumlahAwal || ''} onChange={handleEditChange} /&gt;
@@ -771,7 +780,7 @@ export default function JurnalHarian({ onBack }) {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-11T01:35:57.700Z
+                at 2026-11-11T01:52:38.048Z
             </div>
         <script src="prettify.js"></script>
         <script>

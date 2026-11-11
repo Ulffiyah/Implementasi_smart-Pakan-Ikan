@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const formatRupiah = (angka) => {
-  if (!angka || isNaN(angka)) return 'Rp 0,00';
+  if (!angka || Number.isNaN(Number(angka))) return 'Rp 0,00';
   return new Intl.NumberFormat('id-ID', {
     style: 'currency',
     currency: 'IDR',
@@ -10,10 +10,12 @@ const formatRupiah = (angka) => {
   }).format(angka);
 };
 
+const labelStyle = { fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '4px' };
+
 export default function Rab({ onBack }) {
   const [form, setForm] = useState({ bibitQty: '', bibitHarga: '', peletQty: '', peletHarga: '' });
   const [extraPengeluaran, setExtraPengeluaran] = useState([]);
-  
+
   // Ambil data dari localStorage dengan validasi array untuk mencegah Storage Poisoning
   const [jurnalList, setJurnalList] = useState(() => {
     try {
@@ -141,25 +143,25 @@ export default function Rab({ onBack }) {
       {/* Form Input Utama */}
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '12px', textAlign: 'left' }}>
         <div>
-          <label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '4px' }}>HARGA BIBIT IKAN</label>
+          <label htmlFor="rab-bibit-qty" style={labelStyle}>HARGA BIBIT IKAN</label>
           <div style={{ display: 'flex', gap: '8px' }}>
-            <input type="number" className="form-input" name="bibitQty" placeholder="Jumlah (Ekor)" value={form.bibitQty} onChange={handleChange} />
-            <input type="number" className="form-input" name="bibitHarga" placeholder="Harga (Rp)" value={form.bibitHarga} onChange={handleChange} />
+            <input id="rab-bibit-qty" type="number" className="form-input" name="bibitQty" placeholder="Jumlah (Ekor)" value={form.bibitQty} onChange={handleChange} />
+            <input aria-label="Harga bibit ikan" type="number" className="form-input" name="bibitHarga" placeholder="Harga (Rp)" value={form.bibitHarga} onChange={handleChange} />
           </div>
         </div>
 
         <div>
-          <label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '4px' }}>HARGA PELET</label>
+          <label htmlFor="rab-pelet-qty" style={labelStyle}>HARGA PELET</label>
           <div style={{ display: 'flex', gap: '8px' }}>
-            <input type="number" className="form-input" name="peletQty" placeholder="Berat (Gram)" value={form.peletQty} onChange={handleChange} />
-            <input type="number" className="form-input" name="peletHarga" placeholder="Harga (Rp)" value={form.peletHarga} onChange={handleChange} />
+            <input id="rab-pelet-qty" type="number" className="form-input" name="peletQty" placeholder="Berat (Gram)" value={form.peletQty} onChange={handleChange} />
+            <input aria-label="Harga pelet" type="number" className="form-input" name="peletHarga" placeholder="Harga (Rp)" value={form.peletHarga} onChange={handleChange} />
           </div>
         </div>
 
         {extraPengeluaran.map((item, index) => (
           <div key={item.id} style={{ position: 'relative', background: '#1e293b', padding: '10px', borderRadius: '10px', border: '1px solid #334155' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
-              <label style={{ fontSize: '0.7rem', color: '#38bdf8', fontWeight: 'bold' }}>PENGELUARAN TAMBAHAN {index + 1}</label>
+              <span style={{ fontSize: '0.7rem', color: '#38bdf8', fontWeight: 'bold' }}>PENGELUARAN TAMBAHAN {index + 1}</span>
               <button type="button" onClick={() => handleHapusExtra(item.id)} style={{ background: 'none', border: 'none', color: '#ef4444', fontSize: '0.75rem', cursor: 'pointer' }}>Hapus</button>
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
@@ -184,7 +186,7 @@ export default function Rab({ onBack }) {
       {/* Daftar Jurnal Tersimpan */}
       <div style={{ marginTop: '25px', borderTop: '1px solid #334155', paddingTop: '15px' }}>
         <h4 style={{ color: '#38bdf8', fontSize: '0.85rem', marginBottom: '10px', textAlign: 'center' }}>Jurnal RAB Tersimpan</h4>
-        
+
         {jurnalList.length === 0 ? (
           <div style={{ background: '#1e293b', padding: '15px', borderRadius: '8px', textAlign: 'center', color: '#64748b', fontSize: '0.75rem', border: '1px dashed #334155' }}>
             Belum ada jurnal RAB tersimpan.
@@ -193,11 +195,11 @@ export default function Rab({ onBack }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {jurnalList.map((item, index) => (
               <div key={item.id || index} style={{ position: 'relative', background: '#1e293b', padding: '12px', borderRadius: '8px', border: '1px solid #334155', fontSize: '0.75rem' }}>
-                
+
                 {/* Header Kartu */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
                   <div style={{ color: '#38bdf8', fontWeight: 'bold' }}>📅 {item.tanggal || 'Hari ini'}</div>
-                  
+
                   {editingIndex !== index && (
                     <div style={{ position: 'relative' }}>
                       <button type="button" onClick={() => setActiveMenuId(activeMenuId === index ? null : index)} style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.2rem', cursor: 'pointer', padding: '0 5px' }}>
@@ -218,7 +220,7 @@ export default function Rab({ onBack }) {
                 {editingIndex === index ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', background: '#0f172a', padding: '10px', borderRadius: '6px', border: '1px solid #38bdf8' }}>
                     <div style={{ color: '#38bdf8', fontWeight: 'bold', fontSize: '0.7rem' }}>Edit Semua Data RAB:</div>
-                    
+
                     <div>
                       <span style={{ color: '#94a3b8', fontSize: '0.65rem' }}>Bibit Ikan:</span>
                       <div style={{ display: 'flex', gap: '6px', marginTop: '2px' }}>
@@ -272,7 +274,7 @@ export default function Rab({ onBack }) {
                   <>
                     {item.bibitHarga && <div>🐟 Bibit: {item.bibitQty || 0} ekor ({formatRupiah(item.bibitHarga)})</div>}
                     {item.peletHarga && <div>🥣 Pelet: {item.peletQty || 0} gram ({formatRupiah(item.peletHarga)})</div>}
-                    
+
                     {item.extraPengeluaran && item.extraPengeluaran.map((ex, idx) => (
                       ex.nama && (
                         <div key={idx} style={{ color: '#f59e0b', marginTop: '2px' }}>

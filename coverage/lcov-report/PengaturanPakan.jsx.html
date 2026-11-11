@@ -34,9 +34,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.66% </span>
+                <span class="strong">40.62% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/30</span>
+                <span class='fraction'>13/32</span>
             </div>
         
             
@@ -55,9 +55,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.03% </span>
+                <span class="strong">41.37% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/27</span>
+                <span class='fraction'>12/29</span>
             </div>
         
             
@@ -206,7 +206,13 @@
 <a name='L130'></a><a href='#L130'>130</a>
 <a name='L131'></a><a href='#L131'>131</a>
 <a name='L132'></a><a href='#L132'>132</a>
-<a name='L133'></a><a href='#L133'>133</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
@@ -340,6 +346,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react';
 &nbsp;
+const labelStyle = { fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '6px' };
+const rowStyle = { display: 'flex', gap: '10px', alignItems: 'center' };
+&nbsp;
 export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '30', jamPagi: '10', menitPagi: '56', jamSore: '10', menitSore: '57', durasi: '10' }, onUpdate, onBack, loading }) {
   const [form, setForm] = useState(data);
 &nbsp;
@@ -350,7 +359,7 @@ export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '3
   // Fungsi menambah kolom jadwal baru (Jam : Menit)
   const <span class="fstat-no" title="function not covered" >handleTambahKolom = () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    setExtraJadwal([</span>
-      ...extraJadwal, 
+      ...extraJadwal,
       { id: Date.now(), jam: '', menit: '' }
     ]);
   };
@@ -382,34 +391,34 @@ export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '3
 &nbsp;
       {/* Form Utama */}
       &lt;form onSubmit={(e) =&gt; { e.preventDefault(); onUpdate({ ...form, extraJadwal }); }} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}&gt;
-        
+&nbsp;
         {/* Rentang Tanggal */}
         &lt;div&gt;
-          &lt;label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}&gt;RENTANG TANGGAL&lt;/label&gt;
-          &lt;div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}&gt;
-            &lt;input type="number" className="form-input" value={form.tglMulai || <span class="branch-1 cbranch-no" title="branch not covered" >''} <span class="fstat-no" title="function not covered" >o</span>nChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setForm({...form, tglMulai: e.target.value})}</span> required /&gt;
+          &lt;label htmlFor="pakan-tgl-mulai" style={labelStyle}&gt;RENTANG TANGGAL&lt;/label&gt;
+          &lt;div style={rowStyle}&gt;
+            &lt;input id="pakan-tgl-mulai" type="number" className="form-input" value={form.tglMulai || <span class="branch-1 cbranch-no" title="branch not covered" >''} <span class="fstat-no" title="function not covered" >o</span>nChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setForm({ ...form, tglMulai: e.target.value })}</span> required /&gt;
             &lt;span style={{ color: '#94a3b8' }}&gt;s/d&lt;/span&gt;
-            &lt;input type="number" className="form-input" value={form.tglSelesai || <span class="branch-1 cbranch-no" title="branch not covered" >''} <span class="fstat-no" title="function not covered" >o</span>nChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setForm({...form, tglSelesai: e.target.value})}</span> required /&gt;
+            &lt;input aria-label="Tanggal selesai" type="number" className="form-input" value={form.tglSelesai || <span class="branch-1 cbranch-no" title="branch not covered" >''} <span class="fstat-no" title="function not covered" >o</span>nChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setForm({ ...form, tglSelesai: e.target.value })}</span> required /&gt;
           &lt;/div&gt;
         &lt;/div&gt;
 &nbsp;
         {/* Jadwal Pagi */}
         &lt;div&gt;
-          &lt;label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}&gt;JADWAL PAGI&lt;/label&gt;
-          &lt;div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}&gt;
-            &lt;input type="number" className="form-input" value={form.jamPagi || <span class="branch-1 cbranch-no" title="branch not covered" >''} <span class="fstat-no" title="function not covered" >o</span>nChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setForm({...form, jamPagi: e.target.value})}</span> required /&gt;
+          &lt;label htmlFor="pakan-jam-pagi" style={labelStyle}&gt;JADWAL PAGI&lt;/label&gt;
+          &lt;div style={rowStyle}&gt;
+            &lt;input id="pakan-jam-pagi" type="number" className="form-input" value={form.jamPagi || <span class="branch-1 cbranch-no" title="branch not covered" >''} <span class="fstat-no" title="function not covered" >o</span>nChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setForm({ ...form, jamPagi: e.target.value })}</span> required /&gt;
             &lt;span style={{ color: '#fff', fontWeight: 'bold' }}&gt;:&lt;/span&gt;
-            &lt;input type="number" className="form-input" value={form.menitPagi || ''} <span class="fstat-no" title="function not covered" >onChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setForm({...form, menitPagi: e.target.value})}</span> required /&gt;
+            &lt;input aria-label="Menit pagi" type="number" className="form-input" value={form.menitPagi || ''} <span class="fstat-no" title="function not covered" >onChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setForm({ ...form, menitPagi: e.target.value })}</span> required /&gt;
           &lt;/div&gt;
         &lt;/div&gt;
 &nbsp;
         {/* Jadwal Sore */}
         &lt;div&gt;
-          &lt;label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}&gt;JADWAL SORE&lt;/label&gt;
-          &lt;div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}&gt;
-            &lt;input type="number" className="form-input" value={form.jamSore || <span class="branch-1 cbranch-no" title="branch not covered" >''} <span class="fstat-no" title="function not covered" >o</span>nChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setForm({...form, jamSore: e.target.value})}</span> required /&gt;
+          &lt;label htmlFor="pakan-jam-sore" style={labelStyle}&gt;JADWAL SORE&lt;/label&gt;
+          &lt;div style={rowStyle}&gt;
+            &lt;input id="pakan-jam-sore" type="number" className="form-input" value={form.jamSore || <span class="branch-1 cbranch-no" title="branch not covered" >''} <span class="fstat-no" title="function not covered" >o</span>nChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setForm({ ...form, jamSore: e.target.value })}</span> required /&gt;
             &lt;span style={{ color: '#fff', fontWeight: 'bold' }}&gt;:&lt;/span&gt;
-            &lt;input type="number" className="form-input" value={form.menitSore || ''} <span class="fstat-no" title="function not covered" >onChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setForm({...form, menitSore: e.target.value})}</span> required /&gt;
+            &lt;input aria-label="Menit sore" type="number" className="form-input" value={form.menitSore || ''} <span class="fstat-no" title="function not covered" >onChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >setForm({ ...form, menitSore: e.target.value })}</span> required /&gt;
           &lt;/div&gt;
         &lt;/div&gt;
 &nbsp;
@@ -417,13 +426,13 @@ export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '3
         {extraJadwal.<span class="fstat-no" title="function not covered" >map((i</span>tem, index) =&gt; (
 <span class="cstat-no" title="statement not covered" >          &lt;div key={item.id} style={{ position: 'relative', background: '#1e293b', padding: '10px', borderRadius: '10px', border: '1px solid #334155' }}&gt;</span>
             &lt;div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}&gt;
-              &lt;label style={{ fontSize: '0.7rem', color: '#38bdf8', fontWeight: 'bold' }}&gt;JADWAL TAMBAHAN {index + 1}&lt;/label&gt;
-              
+              &lt;span style={{ fontSize: '0.7rem', color: '#38bdf8', fontWeight: 'bold' }}&gt;JADWAL TAMBAHAN {index + 1}&lt;/span&gt;
+&nbsp;
               {/* Tombol Titik Tiga Vertikal (⋮) */}
               &lt;div style={{ position: 'relative' }}&gt;
-                &lt;button 
-                  type="button" 
-<span class="fstat-no" title="function not covered" >                  onClick={() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etMenuId(menuId === item.id ? null : item.id)} </span>
+                &lt;button
+                  type="button"
+<span class="fstat-no" title="function not covered" >                  onClick={() =&gt; <span class="cstat-no" title="statement not covered" >s</span>etMenuId(menuId === item.id ? null : item.id)}</span>
                   style={{ background: 'none', border: 'none', color: '#fff', fontSize: '1.2rem', cursor: 'pointer', padding: '0 5px' }}
                 &gt;
                   ⋮
@@ -439,7 +448,7 @@ export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '3
               &lt;/div&gt;
             &lt;/div&gt;
 &nbsp;
-            &lt;div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}&gt;
+            &lt;div style={rowStyle}&gt;
               &lt;input type="number" className="form-input" placeholder="Jam" value={item.jam} <span class="fstat-no" title="function not covered" >onChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >handleExtraChange(item.id, 'jam', e.target.value)}</span> required /&gt;
               &lt;span style={{ color: '#fff', fontWeight: 'bold' }}&gt;:&lt;/span&gt;
               &lt;input type="number" className="form-input" placeholder="Menit" value={item.menit} <span class="fstat-no" title="function not covered" >onChange={(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >handleExtraChange(item.id, 'menit', e.target.value)}</span> required /&gt;
@@ -448,8 +457,8 @@ export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '3
         ))}
 &nbsp;
         {/* Tombol Tambah Jadwal Pakan */}
-        &lt;button 
-          type="button" 
+        &lt;button
+          type="button"
           onClick={handleTambahKolom}
           style={{ background: 'none', border: 'none', color: '#38bdf8', fontSize: '0.85rem', fontWeight: 'bold', cursor: 'pointer', textAlign: 'center', padding: '8px 0', borderTop: '1px solid #334155', borderBottom: '1px solid #334155', margin: '5px 0' }}
         &gt;
@@ -458,8 +467,8 @@ export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '3
 &nbsp;
         {/* Durasi (Detik) - Cukup 1 di bawah */}
         &lt;div&gt;
-          &lt;label style={{ fontSize: '0.7rem', color: '#94a3b8', fontWeight: 'bold', display: 'block', marginBottom: '6px' }}&gt;DURASI (DETIK)&lt;/label&gt;
-          &lt;input type="number" className="form-input" value={form.durasi || <span class="branch-1 cbranch-no" title="branch not covered" >''} o</span>nChange={(e) =&gt; setForm({...form, durasi: e.target.value})} required /&gt;
+          &lt;label htmlFor="pakan-durasi" style={labelStyle}&gt;DURASI (DETIK)&lt;/label&gt;
+          &lt;input id="pakan-durasi" type="number" className="form-input" value={form.durasi || <span class="branch-1 cbranch-no" title="branch not covered" >''} o</span>nChange={(e) =&gt; setForm({ ...form, durasi: e.target.value })} required /&gt;
         &lt;/div&gt;
 &nbsp;
         {/* Tombol Simpan / Perbarui */}
@@ -477,7 +486,7 @@ export default function PengaturanPakan({ data = { tglMulai: '1', tglSelesai: '3
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-11-11T01:35:57.700Z
+                at 2026-11-11T01:52:38.048Z
             </div>
         <script src="prettify.js"></script>
         <script>
